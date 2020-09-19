@@ -9,7 +9,32 @@ export class TemperaturaService {
         console.log("Service ready");
     }
 
-    getDatos(){
-        return this.http.get('http://18.212.104.18:3000/');
+    getQuery(query: String){
+        const url = `http://18.212.104.18:3000/${ query }`;
+        return this.http.get(url);
+    }
+    /* Consulta de los últimos 10 valores capturados */
+    getUltimos(){
+        return this.getQuery("ultimos");
+    }
+    /* Consulta entre dos fechas */
+    getFechas(date1: any, date2: any){
+        return this.getQuery(`fechas/${ date1 }/${ date2 }`)
+    }
+    /* Maximo entre dos fechas */
+    getMax(date1: any, date2: any){
+        return this.getQuery(`fechas/maximo/${ date1 }/${ date2 }`)
+    }
+    /* Minimo entre dos fechas */
+    getMin(date1: any, date2: any){
+        return this.getQuery(`fechas/minimo/${ date1 }/${ date2 }`)
+    }
+    /* Promedio entre dos fechas */
+    getProm(date1: any, date2: any){
+        return this.getQuery(`fechas/promedio/${ date1 }/${ date2 }`)
+    }
+    /* Consulta un rango de tiempo de una fecha específica */
+    getTimes(date1: any, time1: any, time2: any){
+        return this.getQuery(`${ date1 }/${ time1 }/${ time2 }`)
     }
 }

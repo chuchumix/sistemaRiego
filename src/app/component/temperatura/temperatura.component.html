@@ -1,0 +1,68 @@
+<!doctype html>
+<html>
+
+<head>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/fontawesome.min.css">
+
+</head>
+
+
+<body>
+    <div>
+        <h1 align="center" class="" style="padding-top: 15px; padding-bottom: 15px;">
+            <img src="assets/img/riego.gif" alt="" width="70px" height="80px" style="margin-top: -60px;">
+            <div id="para_div" style="display: inline-block;">
+                <p><strong>Sistema de riego</strong></p>
+                <p id="refl"><strong>Sistema de riego</strong></p>
+            </div>
+            <img src="assets/img/riego.gif" alt="" width="70px" height="80px" style="margin-top: -60px;">
+        </h1>
+    </div>
+
+
+    <div class="centrado">
+        <label for="de" class="colorBlue" style="padding-right: 5px; padding-top: 4px;"> <h5>De:</h5> </label>
+        <input type="date" class="form-control inp" placeholder="dd/mm/yyyy hh:mm:ss" id="Date1">
+        <input type="time" step="1" class="form-control inp" placeholder="dd/mm/yyyy hh:mm:ss" id="Time1">
+        <label for="a" class="colorBlue" style="padding-right: 5px; padding-left: 5px; padding-top: 4px;"><h5>A:</h5></label>
+        <input type="date" class="form-control inp" placeholder="dd/mm/yyyy hh:mm:ss" id="Date2">
+        <input type="time" step="1" class="form-control inp" placeholder="dd/mm/yyyy hh:mm:ss" id="Time2">
+        <button type="button" class="btn boton" id="buscar"> Buscar </button>
+    </div>
+    <br>
+    <div class="table-responsive fondo">
+        <table class="table table-hover" style="border: 1px solid rgba(112, 112, 112, .3)">
+            <thead class="thead-dark colorBlue" style="text-align: center;">
+                <tr>
+                    <th scope="col">No.</th>
+                    <th scope="col"><img src="assets/img/reloj.gif" alt="" width="30px" height="30px" style="">Fecha-Hora<img src="assets/img/reloj.gif" alt="" width="30px" height="30px" style=""></th>
+                    <th scope="col"><img src="assets/img/fuego.gif" alt="" width="30px" height="30px" style="">Temperatura <img src="assets/img/nieve.gif" alt="" width="30px" height="30px" style=""></th>
+                    <th class="tab-right" scope="col"><img src="assets/img/lluvia.gif" alt="" width="30px" height="30px" style="">Humedad <img src="assets/img/lluvia.gif" alt="" width="30px" height="30px" style=""></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let dato of datos; let i = index;" style="text-align: center;">
+                    <td class="colorBlue">
+                        {{i + 1}}
+                    </td>
+                    <td class="colorBlue tab-left">
+                        {{ dato.fechaHora }}
+                    </td>
+                    <td class="colorBlue tab-left">
+                        {{ dato.valor }}°
+                    </td>
+                    <td class="colorBlue tab-left">
+                        {{ dato.valor/10.23 | number : 0.00 }}%
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+</body>
+
+</html>

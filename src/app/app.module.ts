@@ -7,7 +7,6 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { TemperaturaComponent } from './component/temperatura/temperatura.component';
 import { TemperaturaService } from './services/temperatura.service';
-import { HeaderComponent } from './component/header/header.component';
 import { HttpClientModule } from '@angular/common/http';
 import { from } from 'rxjs';
 import { DatePipe } from '@angular/common';
@@ -16,8 +15,7 @@ import { DatePipe } from '@angular/common';
 @NgModule({
   declarations: [
     AppComponent,
-    TemperaturaComponent,
-    HeaderComponent
+    TemperaturaComponent
   ],
   imports: [
     BrowserModule,

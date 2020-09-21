@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { map } from 'rxjs/operators';
+import { Observable } from 'rxjs';
 
 @Injectable()
 export class TemperaturaService {
@@ -14,11 +15,11 @@ export class TemperaturaService {
         return this.http.get(url);
     }
     /* Consulta de los últimos 10 valores capturados */
-    getUltimos(){
+    getUltimos():Observable<any>{
         return this.getQuery("ultimos");
     }
     /* Consulta entre dos fechas */
-    getFechas(date1: any, date2: any){
+    getFechas(date1: any, date2: any):Observable<any>{
         return this.getQuery(`fechas/${ date1 }/${ date2 }`)
     }
     /* Maximo entre dos fechas */
@@ -34,7 +35,7 @@ export class TemperaturaService {
         return this.getQuery(`fechas/promedio/${ date1 }/${ date2 }`)
     }
     /* Consulta un rango de tiempo de una fecha específica */
-    getTimes(date1: any, time1: any, time2: any){
+    getTimes(date1: any, time1: any, time2: any):Observable<any>{
         return this.getQuery(`${ date1 }/${ time1 }/${ time2 }`)
     }
 }

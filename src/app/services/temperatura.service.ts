@@ -11,7 +11,7 @@ export class TemperaturaService {
     }
 
     getQuery(query: String){
-        const url = `http://18.212.104.18:3000/${ query }`;
+        const url = `http://34.204.78.208:3000/${ query }`;
         return this.http.get(url);
     }
     /* Consulta de los últimos 10 valores capturados */

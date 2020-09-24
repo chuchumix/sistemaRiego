@@ -1,8 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, LOCALE_ID, OnInit } from '@angular/core';
 import { TemperaturaService } from '../../services/temperatura.service';
 import * as $ from 'jquery';
-import { ChartType, ChartOptions, ChartDataSets } from 'chart.js'
-import { DatePipe, WeekDay } from '@angular/common';
+import { ChartDataSets } from 'chart.js'
+import { DatePipe, DecimalPipe } from '@angular/common';
 import { Color, Label } from 'ng2-charts';
 import { forkJoin } from 'rxjs';
 import { map } from 'rxjs/operators';
@@ -73,12 +73,8 @@ export class TemperaturaComponent implements OnInit {
   public lineChartType = 'line';
   public lineChartPlugins = [];
   /* AQUÍ TERMINAN */
-  
 
-  constructor( 
-    private _temperaturaService: TemperaturaService, 
-    private datePipe: DatePipe
-    ) {
+  constructor( private _temperaturaService: TemperaturaService, private datePipe: DatePipe, private decimalPipe: DecimalPipe) {
   }
 
   ngOnInit(): void {
@@ -211,18 +207,18 @@ export class TemperaturaComponent implements OnInit {
       });
       forkJoin([
         /* Este es para la temperatura */
-        this._temperaturaService.getUltimos().pipe( map( data => data.map(val => val.valor))),
+        this._temperaturaService.getUltimos().pipe( map( data => data.map(val => (val.temperatura)))),
         /* Este es para la humedad */
-        /* this._temperaturaService.getUltimos().pipe( map( data => data.map(val => val.humedad)), */
+        this._temperaturaService.getUltimos().pipe( map( data => data.map(val => val.valor/10.23))),
         /* Este es para las fechas */
         this._temperaturaService.getUltimos()
         .pipe( map( data => data.map(val => this.datePipe.transform(val.fechaHora, 'medium')))),
       ]).subscribe((
-        [data0, data1]
+        [data0, data1, data2]
       ) => {
-        this.lineChartData[0].data= data0;
+        this.lineChartData[0].data= data1;
         this.lineChartData[1].data= data0;
-        this.lineChartLabels = data1;
+        this.lineChartLabels = data2;
       });
     } else if(sel === 'fechas'){
       this._temperaturaService.getFechas(date1, date2)
@@ -232,18 +228,18 @@ export class TemperaturaComponent implements OnInit {
       });
       forkJoin([
         /* Este es para la temperatura */
-        this._temperaturaService.getFechas(date1, date2).pipe( map( data => data.map(val => val.valor))),
+        this._temperaturaService.getFechas(date1, date2).pipe( map( data => data.map(val => val.temperatura))),
         /* Este es para la humedad */
-        /* this._temperaturaService.getUltimos().pipe( map( data => data.map(val => val.humedad)), */
+        this._temperaturaService.getFechas(date1, date2).pipe( map( data => data.map(val => val.valor/10.23))),
         /* Este es para las fechas */
         this._temperaturaService.getFechas(date1, date2)
         .pipe( map( data => data.map(val => this.datePipe.transform(val.fechaHora, 'medium')))),
       ]).subscribe((
-        [data0, data1]
+        [data0, data1, data2]
       ) => {
-        this.lineChartData[0].data= data0;
+        this.lineChartData[0].data= data1;
         this.lineChartData[1].data= data0;
-        this.lineChartLabels = data1;
+        this.lineChartLabels = data2;
       });
     } else if(sel === 'tiempo'){
       this._temperaturaService.getTimes(date1, time1, time2)
@@ -255,16 +251,16 @@ export class TemperaturaComponent implements OnInit {
         /* Este es para la temperatura */
         this._temperaturaService.getTimes(date1, time1, time2).pipe( map( data => data.map(val => val.valor))),
         /* Este es para la humedad */
-        /* this._temperaturaService.getUltimos().pipe( map( data => data.map(val => val.humedad)), */
+        this._temperaturaService.getTimes(date1, time1, time2).pipe( map( data => data.map(val => val.humedad/10.23))),
         /* Este es para las fechas */
         this._temperaturaService.getTimes(date1, time1, time2)
         .pipe( map( data => data.map(val => this.datePipe.transform(val.fechaHora, 'medium')))),
       ]).subscribe((
-        [data0, data1]
+        [data0, data1, data2]
       ) => {
-        this.lineChartData[0].data= data0;
+        this.lineChartData[0].data= data1;
         this.lineChartData[1].data= data0;
-        this.lineChartLabels = data1;
+        this.lineChartLabels = data2;
       });
     }
   }

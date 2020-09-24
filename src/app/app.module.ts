@@ -9,7 +9,7 @@ import { TemperaturaComponent } from './component/temperatura/temperatura.compon
 import { TemperaturaService } from './services/temperatura.service';
 import { HttpClientModule } from '@angular/common/http';
 import { from } from 'rxjs';
-import { DatePipe } from '@angular/common';
+import { DatePipe, DecimalPipe } from '@angular/common';
 
 
 @NgModule({
@@ -25,7 +25,8 @@ import { DatePipe } from '@angular/common';
   ],
   providers: [
     TemperaturaService,
-    DatePipe
+    DatePipe,
+    DecimalPipe
   ],
   bootstrap: [AppComponent]
 })
